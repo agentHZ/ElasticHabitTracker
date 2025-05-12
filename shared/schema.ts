@@ -51,6 +51,7 @@ export const insertHabitSchema = createInsertSchema(habits)
   .extend({
     category: z.enum(HABIT_CATEGORIES),
     frequency: z.enum(FREQUENCY_TYPES),
+    reminderTime: z.string().nullable().optional().default(null),
   });
 
 export type InsertHabit = z.infer<typeof insertHabitSchema>;
@@ -61,7 +62,7 @@ export const habitCompletions = pgTable("habit_completions", {
   id: serial("id").primaryKey(),
   habitId: integer("habit_id").notNull(),
   userId: integer("user_id").notNull(),
-  date: date("date").notNull(),
+  date: text("date").notNull(), // Storing date as text in ISO format (YYYY-MM-DD)
   level: text("level").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -70,7 +71,10 @@ export const insertHabitCompletionSchema = createInsertSchema(habitCompletions)
   .omit({ id: true, createdAt: true })
   .extend({
     level: z.enum(COMMITMENT_LEVELS),
-    date: z.coerce.date(),
+    date: z.union([
+      z.string(), // Accept string directly
+      z.date().transform(date => date.toISOString().split('T')[0]) // Or transform Date to YYYY-MM-DD
+    ]),
   });
 
 export type InsertHabitCompletion = z.infer<typeof insertHabitCompletionSchema>;
