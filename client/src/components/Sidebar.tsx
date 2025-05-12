@@ -49,25 +49,26 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
         
         <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
           {menuItems.map((item) => (
-            <Link 
-              key={item.path} 
-              href={item.path}
-              onClick={() => {
-                if (isOpen) onClose();
-              }}
-            >
-              <a 
-                className={`
-                  flex items-center px-4 py-3 text-sm font-medium rounded-md 
-                  ${location === item.path 
-                    ? 'bg-primary-50 text-primary-600' 
-                    : 'text-neutral-600 hover:bg-neutral-100'}
-                `}
+            <div key={item.path}>
+              <Link 
+                href={item.path}
+                onClick={() => {
+                  if (isOpen) onClose();
+                }}
               >
-                <i className={`fas fa-${item.icon} mr-3 ${location === item.path ? 'text-primary-500' : 'text-neutral-500'}`}></i>
-                {item.label}
-              </a>
-            </Link>
+                <div 
+                  className={`
+                    flex items-center px-4 py-3 text-sm font-medium rounded-md cursor-pointer
+                    ${location === item.path 
+                      ? 'bg-primary-50 text-primary-600' 
+                      : 'text-neutral-600 hover:bg-neutral-100'}
+                  `}
+                >
+                  <i className={`fas fa-${item.icon} mr-3 ${location === item.path ? 'text-primary-500' : 'text-neutral-500'}`}></i>
+                  {item.label}
+                </div>
+              </Link>
+            </div>
           ))}
         </nav>
         
