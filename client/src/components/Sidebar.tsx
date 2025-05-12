@@ -81,20 +81,21 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                 }}
               >
                 <div 
-                  className={`
-                    flex items-center px-4 py-3 text-sm font-medium rounded-md cursor-pointer
-                    ${location === item.path 
-                      ? 'bg-primary-50 text-primary-600' 
-                      : 'text-neutral-600 hover:bg-neutral-100'}
-                  `}
+                  className={cn(
+                    "flex items-center px-4 py-3 text-sm font-medium rounded-md cursor-pointer",
+                    location === item.path 
+                      ? "bg-primary-50 text-primary-600" 
+                      : "text-neutral-600 hover:bg-neutral-100",
+                    isRTL && "flex-row-reverse justify-end"
+                  )}
                 >
                   <i className={cn(
                     `fas fa-${item.icon}`,
-                    location === item.path ? 'text-primary-500' : 'text-neutral-500',
-                    isRTL ? 'ml-3' : 'mr-3',
-                    isRTL && 'flip-in-rtl'
+                    location === item.path ? "text-primary-500" : "text-neutral-500",
+                    isRTL ? "mr-3" : "mr-3",
+                    isRTL && "flip-in-rtl"
                   )}></i>
-                  {item.label}
+                  <span className={isRTL ? "ml-auto" : ""}>{item.label}</span>
                 </div>
               </Link>
             </div>

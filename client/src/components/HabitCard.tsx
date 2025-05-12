@@ -152,8 +152,10 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
         </div>
         
         <div className="mt-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <div className={cn("flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4", 
+            isRTL && "sm:flex-row-reverse")}>
+            <div className={cn("flex flex-col gap-2 w-full sm:w-auto", 
+              isRTL ? "sm:flex-row-reverse" : "sm:flex-row")}>
               {/* Micro Level */}
               <button 
                 className={`flex items-center justify-center px-4 py-2 border-2 ${getColorClass('micro')} rounded-md text-sm font-medium`}
@@ -161,7 +163,7 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
                 disabled={isCompleting}
               >
                 {getCheckIcon('micro')}
-                <span>Micro: {habit.microLevel}</span>
+                <span>{isRTL ? `المستوى الصغير: ${habit.microLevel}` : `Micro: ${habit.microLevel}`}</span>
               </button>
               
               {/* Standard Level */}
@@ -171,7 +173,7 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
                 disabled={isCompleting}
               >
                 {getCheckIcon('standard')}
-                <span>Standard: {habit.standardLevel}</span>
+                <span>{isRTL ? `المستوى القياسي: ${habit.standardLevel}` : `Standard: ${habit.standardLevel}`}</span>
               </button>
               
               {/* Stretch Level */}
@@ -181,22 +183,25 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
                 disabled={isCompleting}
               >
                 {getCheckIcon('stretch')}
-                <span>Stretch: {habit.stretchLevel}</span>
+                <span>{isRTL ? `مستوى التمدد: ${habit.stretchLevel}` : `Stretch: ${habit.stretchLevel}`}</span>
               </button>
             </div>
             
             <div className="text-sm text-neutral-500 w-full sm:w-auto">
-              <div className="flex items-center mb-1">
-                <span className="mr-2">Progress:</span>
+              <div className={cn("flex items-center mb-1", isRTL && "flex-row-reverse")}>
+                <span className={isRTL ? "ml-2" : "mr-2"}>{isRTL ? "التقدم:" : "Progress:"}</span>
                 <div className="relative w-32 h-2 bg-neutral-200 rounded-full overflow-hidden">
                   <div 
-                    className="absolute top-0 left-0 h-full bg-primary-500 rounded-full" 
+                    className={cn("absolute top-0 h-full bg-primary-500 rounded-full", 
+                      isRTL ? "right-0" : "left-0")} 
                     style={{ width: `${progressValue}%` }}
                   ></div>
                 </div>
-                <span className="ml-2">{progressValue}%</span>
+                <span className={isRTL ? "mr-2" : "ml-2"}>{progressValue}%</span>
               </div>
-              <div className="text-xs">Current streak: <span className="font-medium">8 days</span></div>
+              <div className={cn("text-xs", isRTL && "text-right")}>
+                {isRTL ? "التتابع الحالي:" : "Current streak:"} <span className="font-medium">8 days</span>
+              </div>
             </div>
           </div>
         </div>
