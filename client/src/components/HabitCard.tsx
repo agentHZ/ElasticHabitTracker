@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Habit, HabitCompletion, COMMITMENT_LEVELS } from "@shared/schema";
+import { useRTL } from "@/hooks/useRTL";
+import { cn } from "@/lib/utils";
 
 interface HabitCardProps {
   habit: Habit;
@@ -11,6 +13,7 @@ interface HabitCardProps {
 
 export default function HabitCard({ habit, completion, onComplete, isCompleting }: HabitCardProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isRTL } = useRTL();
   
   // Get the icon based on the habit category
   const getIcon = (category: string) => {
@@ -76,7 +79,7 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
       return (
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          className="h-4 w-4 mr-2" 
+          className={cn("h-4 w-4", isRTL ? "ml-2" : "mr-2")}
           viewBox="0 0 20 20" 
           fill="currentColor"
         >
@@ -95,7 +98,7 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
     <div className="bg-white rounded-lg shadow overflow-hidden">
       <div className="p-5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
+          <div className={cn("flex items-center", isRTL && "flex-row-reverse")}>
             <div className={`p-2 rounded-md bg-${habit.category === 'health' ? 'primary' : habit.category === 'learning' ? 'blue' : 'purple'}-100 text-${habit.category === 'health' ? 'primary' : habit.category === 'learning' ? 'blue' : 'purple'}-500`}>
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -118,8 +121,8 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
                 )}
               </svg>
             </div>
-            <h3 className="ml-3 text-lg font-medium text-neutral-800">{habit.title}</h3>
-            <span className={`ml-2 px-2 py-1 text-xs font-medium rounded-full bg-${habit.category === 'health' ? 'primary' : habit.category === 'learning' ? 'blue' : 'purple'}-100 text-${habit.category === 'health' ? 'primary' : habit.category === 'learning' ? 'blue' : 'purple'}-600`}>{habit.frequency}</span>
+            <h3 className={cn("text-lg font-medium text-neutral-800", isRTL ? "mr-3" : "ml-3")}>{habit.title}</h3>
+            <span className={cn(`px-2 py-1 text-xs font-medium rounded-full bg-${habit.category === 'health' ? 'primary' : habit.category === 'learning' ? 'blue' : 'purple'}-100 text-${habit.category === 'health' ? 'primary' : habit.category === 'learning' ? 'blue' : 'purple'}-600`, isRTL ? "mr-2" : "ml-2")}>{habit.frequency}</span>
           </div>
           <div className="relative">
             <button 
@@ -137,11 +140,11 @@ export default function HabitCard({ habit, completion, onComplete, isCompleting 
               </svg>
             </button>
             {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+              <div className={cn("absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10", isRTL ? "left-0" : "right-0")}>
                 <div className="py-1">
-                  <button className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">Edit Habit</button>
-                  <button className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">View History</button>
-                  <button className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-neutral-100">Delete Habit</button>
+                  <button className={cn("block w-full px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100", isRTL ? "text-right" : "text-left")}>{isRTL ? "تعديل العادة" : "Edit Habit"}</button>
+                  <button className={cn("block w-full px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100", isRTL ? "text-right" : "text-left")}>{isRTL ? "عرض التاريخ" : "View History"}</button>
+                  <button className={cn("block w-full px-4 py-2 text-sm text-red-600 hover:bg-neutral-100", isRTL ? "text-right" : "text-left")}>{isRTL ? "حذف العادة" : "Delete Habit"}</button>
                 </div>
               </div>
             )}
