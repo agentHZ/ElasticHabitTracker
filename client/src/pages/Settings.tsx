@@ -20,6 +20,7 @@ interface SettingsProps {
 
 export default function Settings({ user }: SettingsProps) {
   const { toast } = useToast();
+  const { isRTL } = useRTL();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -305,6 +306,18 @@ export default function Settings({ user }: SettingsProps) {
                   >
                     System
                   </Button>
+                </div>
+              </div>
+              
+              <Separator />
+
+              <div>
+                <h3 className="text-base font-medium mb-3">Language & Direction</h3>
+                <LanguageSelector />
+                <div className="mt-2 text-sm text-muted-foreground">
+                  {isRTL 
+                    ? "اختر لغتك المفضلة واتجاه النص"
+                    : "Choose your preferred language and text direction"}
                 </div>
               </div>
               
