@@ -62,7 +62,7 @@ function Router() {
       />
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-neutral-50">
+      <MainContent>
         <Switch>
           <Route path="/" component={() => <Dashboard user={user} />} />
           <Route path="/analytics" component={() => <Analytics user={user} />} />
@@ -70,7 +70,7 @@ function Router() {
           <Route path="/help" component={() => <Help user={user} />} />
           <Route component={NotFound} />
         </Switch>
-      </main>
+      </MainContent>
     </div>
   );
 }
