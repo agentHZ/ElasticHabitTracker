@@ -55,4 +55,39 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
+
+  /* RTL Support */
+  html[dir="rtl"] {
+    /* Flip icons and other visual elements */
+    .flip-in-rtl {
+      @apply transform scale-x-[-1];
+    }
+
+    /* Adjust text alignment in RTL mode */
+    .text-left {
+      text-align: right;
+    }
+    
+    .text-right {
+      text-align: left;
+    }
+
+    /* Reverse margin and padding in RTL mode */
+    .ml-1, .ml-2, .ml-3, .ml-4, .ml-5, .ml-6, .ml-8, .ml-10, .ml-12 {
+      margin-left: 0;
+    }
+    
+    .mr-1, .mr-2, .mr-3, .mr-4, .mr-5, .mr-6, .mr-8, .mr-10, .mr-12 {
+      margin-right: 0;
+    }
+
+    /* Adjust flex directions */
+    .flex-row {
+      flex-direction: row-reverse;
+    }
+    
+    .flex-row-reverse {
+      flex-direction: row;
+    }
+  }
 }

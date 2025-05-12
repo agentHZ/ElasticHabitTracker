@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
+import LanguageSelector from "@/components/LanguageSelector";
+import { useRTL } from "@/hooks/useRTL";
 
 interface SettingsProps {
   user: {

@@ -10,6 +10,7 @@ import Help from "@/pages/Help";
 import NotFound from "@/pages/not-found";
 import Sidebar from "@/components/Sidebar";
 import { useState, useEffect } from "react";
+import { RTLProvider } from "@/hooks/useRTL";
 
 function Router() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -90,10 +91,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <RTLProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </RTLProvider>
     </QueryClientProvider>
   );
 }
