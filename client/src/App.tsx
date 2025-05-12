@@ -9,6 +9,8 @@ import Settings from "@/pages/Settings";
 import Help from "@/pages/Help";
 import NotFound from "@/pages/not-found";
 import Sidebar from "@/components/Sidebar";
+import MobileMenuButton from "@/components/MobileMenuButton";
+import MainContent from "@/components/MainContent";
 import { useState, useEffect } from "react";
 import { RTLProvider } from "@/hooks/useRTL";
 
@@ -50,22 +52,7 @@ function Router() {
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Mobile Menu Button */}
-      <div className="lg:hidden fixed top-0 left-0 z-20 m-4">
-        <button 
-          className="p-2 bg-white rounded-md shadow-md text-neutral-500 hover:text-primary-500 focus:outline-none"
-          onClick={toggleMobileMenu}
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-6 w-6" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
+      <MobileMenuButton onClick={toggleMobileMenu} />
 
       {/* Sidebar */}
       <Sidebar 
